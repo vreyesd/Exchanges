@@ -79,11 +79,6 @@ class Bitfinex():
       headers['X-BFX-PAYLOAD'] = payload
       headers['X-BFX-SIGNATURE'] = apisign
 
-#      if private:
-#        res = requests.post(url, headers=headers, data=body)
-#      else: 
-#        res = requests.get(url)
-
     try:
       if private:
         res = requests.post(url, headers=headers, data=body)
@@ -147,13 +142,13 @@ class Bitfinex():
     return self.query(BITFINEX_GETBALANCES_URL, private=True)
 
   def setTransferBetweenWallets(self, amount=0, currency=None, walletFrom=None, walletTo=None):
-    return self.query(BITFINEX_GETTRANSFERBETWEENWALLETS_URL, private=True, data={'amount': amount, 'currency': , 'walletfrom': walletFrom, 'walletto': walletTo})
+    return self.query(BITFINEX_GETTRANSFERBETWEENWALLETS_URL, private=True, data={'amount': amount, 'currency': currency, 'walletfrom': walletFrom, 'walletto': walletTo})
 
   def setWithdrawl(self, withdrawType=None, walletSelected=None, amount=0, address= None):
     return self.query(BITFINEX_SETWITHDRAWL_URL, private=True, data={'withdraw_type': withdrawType, 'walletselected': walletSelected, 'amount': amount, 'address': address})
     
-  def setNewOrder(self, symbol=None, amount=0, price=0, exchange=None, side=None, type=None):
-    return self.uery(BITFINEX_SETORDERNEW_URL, private=True, data={'symbol': symbol, 'amount': amount, 'price': price, 'exchange': exchange, 'side': side, 'type': type})
+  def setNewOrder(self, symbol=None, amount=0, price=0, exchange='bitfinex', side=None, type=None):
+    return self.query(BITFINEX_SETORDERNEW_URL, private=True, data={'symbol': symbol, 'amount': amount, 'price': price, 'exchange': exchange, 'side': side, 'type': type})
 
   def setNewOrders(self, orders=[]):
     return self.query(BITFINEX_SETORDERSNEW_URL, private=True, data=orders)
@@ -183,10 +178,10 @@ class Bitfinex():
     return self.query(BITFINEX_GETPOSITIONSACTIVE_URL, private=True)
 
   def setClaimPosition(self, id=None, amount=0):
-    return self.query(BITFINEX_SETPOSITIONCLAIM_URL, private=True data={'id': id, 'amount': amount})
+    return self.query(BITFINEX_SETPOSITIONCLAIM_URL, private=True, data={'id': id, 'amount': amount})
 
   def getBalanceHistory(self, currency=None):
-    return self.query(BITFINEX_GETBALANCEHISTORY_URL, private=True data={'currency': currency})
+    return self.query(BITFINEX_GETBALANCEHISTORY_URL, private=True, data={'currency': currency})
 
   def getDepositWithdrawalHistory(self, currency=None):
     return self.query(BITFINEX_GETDEPOSITWITHDRAWALHISTORY_URL, private=True, data={'currency': currency})
@@ -194,13 +189,13 @@ class Bitfinex():
   def getPastTrades(self, currency=None):
     return self.query(BITFINEX_GETTRADESHISTORY_URL, private=True, data={'currency': currency})
 
-  def setNewOrder(self, currency=None, amount=0, rate=0, period=0, direction=None):
-    return self.query(BITFINEX_SETORDERNEW_URL, private=True, data={'currency': currency, 'amount': amount, 'rate': rate, 'period': period, 'direction': direction})
+  def setNewOffer(self, currency=None, amount=0, rate=0, period=0, direction=None):
+    return self.query(BITFINEX_SETOFFERNEW_URL, private=True, data={'currency': currency, 'amount': amount, 'rate': rate, 'period': period, 'direction': direction})
 
-  def setCancelOrder(self, offerId=None):
-    return self.query(BITFINEX_SETORDERCANCEL_URL, private=True, data={'offer_id': id})
+  def setCancelOffer(self, offerId=None):
+    return self.query(BITFINEX_SETOFFERCANCEL_URL, private=True, data={'offer_id': id})
 
-  def getOrderStatus(self, orderId=None):
+  def getOfferStatus(self, orderId=None):
     return self.query(BITFINEX_GETOFFERSTATUS_URL, private=True, data={'offer_id': offerId})
 
   def getActiveCredits(self):
@@ -222,7 +217,7 @@ class Bitfinex():
     return self.query(BITFINEX_GETFUNDINGACTIVEUNUSED_URL, private=True)
 
   def getTotalTakenFunds(self):
-    return self.query(BITFINEX_GETFUNDSTOTAL_URL private=True)
+    return self.query(BITFINEX_GETFUNDSTOTAL_URL, private=True)
 
   def setCloseMarginFunding(self, swapId=None):
     return self.query(BITFINEX_SETCLOSEDMARGINFUNDING_URL, private=True, data={'swap_Id': swapId})
