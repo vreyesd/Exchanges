@@ -154,7 +154,7 @@ class Bitfinex():
     return self.query(BITFINEX_SETORDERSNEW_URL, private=True, data=orders)
 
   def setCancelOrder(self, id=None):
-    return self.query(BITFINEX_SETORDERCANCEL_URL, private=True, data={'id': id})
+    return self.query(BITFINEX_SETORDERCANCEL_URL, private=True, data={'order_id': id})
 
   def setCancelOrders(selfm, ids=[]):
     return self.query(BITFINEX_SETORDERSCANCEL_URL, private=True, data={'ids': ids})
@@ -178,7 +178,7 @@ class Bitfinex():
     return self.query(BITFINEX_GETPOSITIONSACTIVE_URL, private=True)
 
   def setClaimPosition(self, id=None, amount=0):
-    return self.query(BITFINEX_SETPOSITIONCLAIM_URL, private=True, data={'id': id, 'amount': amount})
+    return self.query(BITFINEX_SETPOSITIONCLAIM_URL, private=True, data={'position_id': id, 'amount': amount})
 
   def getBalanceHistory(self, currency=None):
     return self.query(BITFINEX_GETBALANCEHISTORY_URL, private=True, data={'currency': currency})
